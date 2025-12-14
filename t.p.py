@@ -1,38 +1,41 @@
-import sys
 import random
-import time 
+import sys
+import argparse
+
+
+lowest_num = 1
+highest_num = 3
+ans = random.choice([1,2,3])
+is_playing = True
+guesses = 0
+gamecount = 1
+parser = argparse.ArgumentParser(
+    description="for asking name"
+)
+parser.add_argument(
+    "-n", "--name", metavar="name",
+    required=True, help="U have to enter name"
+)
+args = parser.parse_args()
+
 
 
 def game():
-    gamecount = 0
-    print("Lets play a game!")
-    input("To play game press Enter!")
-    print("U have to guess what number i was thinking!!!")
-    time.sleep(0.5)
-    print("Are u ready?")
-    input("press enter to continue")
-    while True :
-        userchoice = int(input("Pick ur choice between 1 to 10   \n"))
-        computerchoice = random.randint(1, 10)
-        gamecount = 0
-        userchoice  = 0
-        while userchoice != gamecount:
-            gamecount += 1
-            while True:
-                if userchoice == computerchoice :
-                    print(f"yeah! U WON!!! I was thinking of {userchoice}")
-                else :
-                    print(f"U lose i was'nt thinking of {userchoice}" )
+    name = args.name
+    print(f" {name}, Make a choice 1,2 or 3")
+    num = int(input())
+    if num == ans:
+        print(f"you won! YES i was thinking of {ans}")
+    global gamecount
+    gamecount += 1 
+    if num  != ans:
+        print(f"you lose! i was thinking of {ans}")
+    print(f"gamecount: {gamecount}")
+    print("Want to play again? Y/Q")
+    nu_m = input()
+    if nu_m == "Y":
+        game()
+    else:
+        sys.exit()       
 
-        print(f"I was thinking of {computerchoice}")
-        print("Gamecount :", gamecount)
-        time.sleep(1)
-        choice = input("play again? Type Y for yes or Q for quit! ").strip().lower()
-        if choice == "Y":
-            continue
-        else:
-            print("Goodbye!!!")
-            break 
-game()         
-
-
+game()
